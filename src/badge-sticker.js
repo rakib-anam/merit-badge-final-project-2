@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 
+
 class BadgeSticker extends LitElement {
 
   static get properties() {
@@ -10,7 +11,6 @@ class BadgeSticker extends LitElement {
       icon: { type: String },
       locked: { type: Boolean },
       verificationLink: { type: String },
-      eventName: { type: String }
     };
   }
 
@@ -29,8 +29,8 @@ class BadgeSticker extends LitElement {
         justify-content: center;
         width: 200px;
         height: 200px;
-        background-color: var(--badge-color, #CCC);
-        border: 2px solid var(--badge-stitch-color, #FFF);
+        background-color: var(--badge-color, #000000);
+        border: 2px dashed var(--badge-stitch-color, #FFF);
         border-radius: 50%;
         box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
         overflow: hidden;
@@ -43,7 +43,7 @@ class BadgeSticker extends LitElement {
       }
 
       .badge-icon {
-        font-size: 50px;
+        font-size: 70px;
         color: var(--badge-icon-color, #ffffff);
       }
 
@@ -51,43 +51,34 @@ class BadgeSticker extends LitElement {
         font-size: 18px;
         font-weight: bold;
         margin-top: 10px;
-        color: var(--badge-label-color, #333);
-        word-wrap: break-word;
+        color: var(--badge-label-color, #ffffff);
+        text-align: center
         width: 120px;
       }
 
       .badge-date {
         font-size: 12px;
         margin-top: 5px;
-        color: var(--badge-date-color, #333);
+        color: var(--badge-date-color, #ffffff);
       }
+
     `;
   }
 
   constructor() {
     super();
     this.locked = true;
-    this.addEventListener('click', this._handleClick);
   }
 
   render() {
     return html`
       <div class="badge ${this.locked ? 'locked' : ''}">
         <div class="badge-icon">${this.icon}
-        <div class="badge-label">${this.title}</div>
-      <div class="badge-date">${this.date}</div>
-      </div>
+          <div class="badge-label">${this.title}</div>
+          <div class="badge-date">${this.date}</div>
+        </div>
       </div>
     `;
-  }
-
-  _handleClick() {
-    if (!this.locked) return;
-
-    const event = new CustomEvent(this.eventName, {
-      detail: { badge: this }
-    });
-    this.dispatchEvent(event);
   }
 
 }

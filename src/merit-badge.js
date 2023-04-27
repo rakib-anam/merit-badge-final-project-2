@@ -33,6 +33,10 @@ class MeritBadge extends LitElement {
         font-size: 16px;
         cursor: pointer;
       }
+
+      button:active {
+        background-color: #0c375a;
+      }
     `;
   }
 
@@ -43,6 +47,7 @@ class MeritBadge extends LitElement {
 
   render() {
     return html`
+    <!-- badge -->
       <badge-sticker 
         .title=${this.title}
         .date=${this.date}
@@ -51,14 +56,17 @@ class MeritBadge extends LitElement {
         .locked=${this.locked}
         .verificationLink=${this.verificationLink}>
       </badge-sticker>
-      ${this.locked ? html`
-        <button @click="${this._unlockBadge}">Unlock Badge</button>
-      ` : ''}
+    <!-- button -->
+      <button id="unlockBadgeButton" 
+      @click="${this.handleButtonClick}"
+      >Unlock Badge</button>
     `;
   }
 
-  _unlockBadge() {
+  handleButtonClick() {
     this.locked = false;
+    const today = new Date();
+    this.date = "Unlocked on " + today.toDateString();
   }
 
 }
