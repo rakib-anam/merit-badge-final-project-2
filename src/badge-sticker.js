@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit-element';
+import "@lrnwebcomponents/absolute-position-behavior/absolute-position-behavior.js";
 import "@lrnwebcomponents/simple-icon/simple-icon.js";
 import "@lrnwebcomponents/simple-icon/lib/simple-icons.js";
 import "@lrnwebcomponents/simple-icon/lib/simple-icon-button.js";
@@ -102,6 +103,18 @@ class BadgeSticker extends LitElement {
       </div>
     
       <!-- ABSOLUTE POSITION CODE FOR SKILLS POP OVER -->
+
+      <absolute-position-behavior
+          justify
+          position="bottom"
+          allow-overlap
+          sticky
+          auto
+          .target="${this.activeNode}"
+          ?hidden="${!this.skillsOpened}">
+            <ul class="skills">${this.skills.map(item => html`<li>${item}</li>`)}</ul>
+        </absolute-position-behavior> 
+
     `;
   }
 
@@ -109,7 +122,7 @@ class BadgeSticker extends LitElement {
   verify() {
     window.open(this.verificationLink, "_blank");
   }
-/*
+
   //skills popover functions 
   firstUpdated(changedProperties) {
     if (super.firstUpdated) {
@@ -121,7 +134,6 @@ class BadgeSticker extends LitElement {
     this.skillsOpened = !this.skillsOpened;
     console.log(this.skillsOpened)
   }
-*/
 
 }
 
